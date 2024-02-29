@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"gopkg.in/yaml.v3"
 	"runtime"
 	"strings"
 	"time"
+
+	"gopkg.in/yaml.v3"
 
 	"github.com/Dreamacro/clash/common/pool"
 	"github.com/Dreamacro/clash/component/resource"
@@ -111,7 +112,7 @@ func (rp *ruleSetProvider) MarshalJSON() ([]byte, error) {
 			"name":        rp.Name(),
 			"ruleCount":   rp.strategy.Count(),
 			"type":        rp.Type().String(),
-			"updatedAt":   rp.UpdatedAt,
+			"updatedAt":   rp.UpdatedAt().String(),
 			"vehicleType": rp.VehicleType().String(),
 		})
 }

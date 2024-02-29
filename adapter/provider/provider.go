@@ -46,13 +46,19 @@ type proxySetProvider struct {
 }
 
 func (pp *proxySetProvider) MarshalJSON() ([]byte, error) {
+	expectedStatus := "*"
+	if pp.healthCheck.expectedStatus != nil {
+		expectedStatus = pp.healthCheck.expectedStatus.ToString()
+	}
+
 	return json.Marshal(map[string]any{
 		"name":             pp.Name(),
 		"type":             pp.Type().String(),
 		"vehicleType":      pp.VehicleType().String(),
 		"proxies":          pp.Proxies(),
 		"testUrl":          pp.healthCheck.url,
-		"updatedAt":        pp.UpdatedAt,
+		"expectedStatus":   expectedStatus,
+		"updatedAt":        pp.UpdatedAt().String(),
 		"subscriptionInfo": pp.subscriptionInfo,
 	})
 }
